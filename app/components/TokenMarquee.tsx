@@ -9,6 +9,7 @@ export type Token = {
   symbol: string;
   price: number;
   price24hChangePercent: number;
+  logoURI?: string;
 };
 
 export default function TokenMarquee({ tokens }: { tokens: Token[] }) {
