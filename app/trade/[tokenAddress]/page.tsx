@@ -38,7 +38,7 @@ async function getTokenHolders(address: string) {
 
 export default async function TradePage({ params }: { params: Promise<{ tokenAddress: string }> }) {
   const { tokenAddress } = await params;
-  
+
   const [overview, holders] = await Promise.all([
     getTokenOverview(tokenAddress),
     getTokenHolders(tokenAddress)
@@ -47,7 +47,7 @@ export default async function TradePage({ params }: { params: Promise<{ tokenAdd
   return (
     <div className="flex h-screen flex-col bg-[#0a0a0c] overflow-hidden">
       <Navbar />
-      
+
       <div className="flex-1 w-full flex overflow-hidden">
         {/* Left Column: Trending Tokens (25%) */}
         <div className="w-1/4 lg:min-w-[280px] xl:max-w-[320px] border-r border-white/5 hidden md:flex flex-col bg-[#0a0a0c]">
@@ -58,7 +58,7 @@ export default async function TradePage({ params }: { params: Promise<{ tokenAdd
             <TrendingTokensSidebar />
           </div>
         </div>
-        
+
         {/* Middle Column: Chart & Info (50%) */}
         <div className="flex-1 flex flex-col overflow-y-auto bg-[#0a0a0c] p-4 gap-4 border-r border-white/5">
           {/* Header Info placeholder */}
@@ -71,7 +71,7 @@ export default async function TradePage({ params }: { params: Promise<{ tokenAdd
               )}
               <div className="flex flex-col">
                 <h1 className="text-xl font-bold text-white flex items-center gap-2">
-                  {overview?.name || "Unknown Token"} 
+                  {overview?.name || "Unknown Token"}
                   <span className="text-white/40 text-sm font-normal">{overview?.symbol}</span>
                 </h1>
                 <span className="text-white/30 text-xs font-mono">
@@ -79,7 +79,7 @@ export default async function TradePage({ params }: { params: Promise<{ tokenAdd
                 </span>
               </div>
             </div>
-            
+
             {overview && (
               <div className="flex items-center gap-6 text-right">
                 <div className="flex flex-col">
@@ -105,17 +105,17 @@ export default async function TradePage({ params }: { params: Promise<{ tokenAdd
               </div>
             )}
           </div>
-          
+
           {/* Chart Area */}
           <div className="h-[50vh] min-h-[400px] w-full bg-[#161618] rounded-xl border border-white/5 overflow-hidden flex flex-col">
-             <div className="p-4 border-b border-white/5">
-               <h2 className="text-sm font-semibold text-white/80">Price Chart</h2>
-             </div>
-             <div className="flex-1 relative">
-                <LightweightChart tokenAddress={tokenAddress} />
-             </div>
+            <div className="p-4 border-b border-white/5">
+              <h2 className="text-sm font-semibold text-white/80">Price Chart</h2>
+            </div>
+            <div className="flex-1 relative">
+              <LightweightChart tokenAddress={tokenAddress} />
+            </div>
           </div>
-          
+
           {/* Holders Table */}
           <div className="flex-1 min-h-[200px] bg-[#161618] rounded-xl border border-white/5 p-4 flex flex-col">
             <h2 className="text-sm font-semibold text-white/80 mb-4">Top 10 Holders</h2>
@@ -160,14 +160,14 @@ export default async function TradePage({ params }: { params: Promise<{ tokenAdd
             </div>
           </div>
         </div>
-        
+
         {/* Right Column: Execution Desk (25%) */}
         <div className="w-1/4 lg:min-w-[320px] xl:max-w-[400px] bg-[#0a0a0c] overflow-y-auto p-4 flex flex-col gap-4">
           {/* Jupiter Terminal — scrollable box so Connect Wallet is always reachable */}
           <div className="bg-[#161618] rounded-xl border border-white/5 shadow-2xl overflow-y-auto flex-shrink-0" style={{ maxHeight: 'calc(85vh - 220px)' }}>
             <JupiterTerminal tokenAddress={tokenAddress} />
           </div>
-          
+
           <div className="bg-[#161618] rounded-xl border border-white/5 p-4 min-h-[200px]">
             <h2 className="text-sm font-semibold text-white/80 mb-4">Your Positions</h2>
             <div className="flex items-center justify-center h-24 text-white/30 text-sm border border-dashed border-white/10 rounded-lg">
