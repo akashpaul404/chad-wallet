@@ -18,29 +18,40 @@ export default function JupiterTerminal({ tokenAddress }: { tokenAddress: string
     let script = document.getElementById(scriptId) as HTMLScriptElement;
 
     const initJup = () => {
-      if (window.Jupiter) {
-        window.Jupiter.init({
-          displayMode: "integrated",
-          integratedTargetId: "integrated-terminal",
-          endpoint: process.env.NEXT_PUBLIC_ALCHEMY_RPC_URL || "https://api.mainnet-beta.solana.com",
-          strictTokenList: false,
-          formProps: {
-            initialOutputMint: tokenAddress,
-            initialInputMint: "So11111111111111111111111111111111111111112", // SOL default
-            fixedOutputMint: true,
-          },
-        });
-      }
+      if (!window.Jupiter) return;
+
+      window.Jupiter.init({
+        displayMode: "integrated",
+        integratedTargetId: "integrated-terminal",
+        endpoint: process.env.NEXT_PUBLIC_ALCHEMY_RPC_URL || "https://api.mainnet-beta.solana.com",
+        strictTokenList: false,
+        // Allow Jupiter to show its own wallet connect UI so users can connect
+        enableWalletPassthrough: false,
+        formProps: {
+          initialOutputMint: tokenAddress,
+          initialInputMint: "So11111111111111111111111111111111111111112",
+          fixedOutputMint: true,
+        },
+        onSuccess: ({ txid }: { txid: string }) => {
+          console.log("Swap success:", txid);
+        },
+      });
     };
 
     if (!script) {
       script = document.createElement("script");
       script.id = scriptId;
+      // Use the latest stable Jupiter Terminal bundle (v4 is current for integrated mode)
       script.src = "https://terminal.jup.ag/main-v4.js";
-      script.onload = () => setTimeout(initJup, 100);
+      script.async = true;
+      script.onload = () => setTimeout(initJup, 200);
       document.head.appendChild(script);
-    } else {
+    } else if (window.Jupiter) {
+      // Script already loaded — just re-init with the new token
       setTimeout(initJup, 100);
+    } else {
+      // Script tag exists but not loaded yet — wait
+      script.addEventListener("load", () => setTimeout(initJup, 200));
     }
   }, [tokenAddress]);
 
@@ -49,13 +60,13 @@ export default function JupiterTerminal({ tokenAddress }: { tokenAddress: string
       {!authenticated && (
         <div className="p-4 text-center border-b border-white/5">
           <p className="text-sm text-yellow-400/80 bg-yellow-400/10 px-4 py-2 rounded-lg inline-block">
-            Sign in to execute trades
+            Sign in to execute trades faster — or connect a wallet below
           </p>
         </div>
       )}
-      <div 
-        id="integrated-terminal" 
-        className="w-full min-h-[500px] h-full overflow-hidden [&>div]:h-full"
+      <div
+        id="integrated-terminal"
+        className="w-full min-h-[520px]"
       />
     </div>
   );

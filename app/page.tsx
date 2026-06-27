@@ -15,7 +15,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Hero Section — overflow-visible so QR dropdown is not clipped */}
+      {/* Hero Section */}
       <section className="relative min-h-screen w-full flex flex-col items-center justify-center overflow-visible">
         <Image 
           src="/assets/hero/earth.webp" 
@@ -26,7 +26,6 @@ export default function Home() {
           sizes="100vw" 
           className="object-cover pointer-events-none" 
         />
-        {/* Dark overlay */}
         <div className="absolute inset-0 bg-black/60 z-0 pointer-events-none" />
 
         {/* Floating Astronaut */}
@@ -46,46 +45,58 @@ export default function Home() {
 
         {/* Hero Content */}
         <div className="relative z-20 flex flex-col items-center text-center px-6 mt-16 max-w-4xl mx-auto">
+          {/* "NOW AVAILABLE ON WEB" badge — same as fomo.family */}
+          <div className="mb-6 flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/15 rounded-full px-4 py-1.5 text-xs font-semibold tracking-widest uppercase text-white/70">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            Now available on web
+          </div>
           <h1 className="text-4xl md:text-[160px] font-bold tracking-tighter text-white mb-2 leading-none lowercase">
             chad
           </h1>
           <h2 className="text-2xl md:text-[40px] font-bold tracking-tight text-white drop-shadow-lg">
             where traders become legends.
           </h2>
-          <p className="text-lg md:text-xl text-white/80 max-w-2xl font-medium drop-shadow-md">
+          <p className="text-lg md:text-xl text-white/80 max-w-2xl font-medium drop-shadow-md mt-3">
             From memecoins to viral tokens, trade any crypto in seconds.
           </p>
-          {/* Wrapped in high z-index so QR popover overlaps next section */}
           <div className="relative z-[200] mt-6">
             <HeroButtons />
           </div>
         </div>
       </section>
 
-      {/* Video Section */}
-      <section className="relative py-32 md:py-48 px-6 flex flex-col items-center text-center overflow-hidden">
-        <div className="absolute inset-0 z-0 w-full h-full pointer-events-none">
+      {/* Video Section — video moved to SIDE, text fully readable */}
+      <section className="relative py-32 md:py-48 px-6 bg-[#050505] overflow-hidden">
+        {/* Video plays subtly in background at very low opacity */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
           <video
             autoPlay
             loop
             muted
             playsInline
-            className="object-cover w-full h-full opacity-40"
+            className="object-cover w-full h-full opacity-10"
             src="/assets/video/chadwallet.mp4"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#050505] via-transparent to-[#050505]" />
+          {/* Strong gradient to make text always readable */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#050505] via-[#050505]/80 to-[#050505]" />
         </div>
 
-        <div className="relative z-10 max-w-5xl mx-auto flex flex-col items-center">
-          <div className="w-full max-w-[600px] mb-16 animate-[float_6s_ease-in-out_infinite]">
-            <img src="/assets/flow/launch-4.png" alt="Trade anywhere" className="w-full h-auto object-contain drop-shadow-2xl" />
+        <div className="relative z-10 max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16">
+          {/* Floating mockup image */}
+          <div className="w-full lg:w-1/2 flex-shrink-0">
+            <div className="w-full max-w-[500px] mx-auto animate-[float_6s_ease-in-out_infinite]">
+              <img src="/assets/flow/launch-4.png" alt="Trade anywhere" className="w-full h-auto object-contain drop-shadow-2xl" />
+            </div>
           </div>
-          <h2 className="text-5xl md:text-7xl font-bold tracking-tighter mb-6">
-            trade from anywhere,<br />never lose a beat.
-          </h2>
-          <p className="text-xl text-white/50 max-w-2xl font-medium">
-            Create sub-accounts to manage your portfolio with laser focus.
-          </p>
+          {/* Text content — always fully readable */}
+          <div className="w-full lg:w-1/2 text-center lg:text-left">
+            <h2 className="text-5xl md:text-7xl font-bold tracking-tighter mb-6">
+              trade from anywhere,<br />never lose a beat.
+            </h2>
+            <p className="text-xl text-white/50 max-w-xl font-medium">
+              Open a trade on your phone, close it on your desktop — all in one app.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -97,7 +108,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Features Grid Section */}
+      {/* Features Grid Section — 6 cards matching fomo.family */}
       <section className="py-32 px-6 bg-[#050505]">
         <div className="max-w-7xl mx-auto">
           <div className="mb-20">
@@ -109,9 +120,10 @@ export default function Home() {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Row 1: 3 social cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
             <div className="bg-[#0a0a0c] rounded-[32px] p-10 border border-white/5 flex flex-col transition-transform hover:-translate-y-2 duration-300">
-              <span className="text-blue-500 text-xs font-bold mb-4 uppercase tracking-widest">Step 1</span>
+              <span className="text-blue-500 text-xs font-bold mb-4 uppercase tracking-widest">Leaderboard</span>
               <h3 className="text-3xl font-semibold mb-10 tracking-tight leading-tight">become a legend, top the leaderboard</h3>
               <div className="mt-auto">
                 <img src="/assets/flow/kol-4.png" alt="Leaderboard" className="w-full h-auto rounded-xl object-contain" />
@@ -119,7 +131,7 @@ export default function Home() {
             </div>
             
             <div className="bg-[#0a0a0c] rounded-[32px] p-10 border border-white/5 flex flex-col transition-transform hover:-translate-y-2 duration-300">
-              <span className="text-purple-500 text-xs font-bold mb-4 uppercase tracking-widest">Step 2</span>
+              <span className="text-purple-500 text-xs font-bold mb-4 uppercase tracking-widest">Feed</span>
               <h3 className="text-3xl font-semibold mb-10 tracking-tight leading-tight">discover and follow top traders</h3>
               <div className="mt-auto">
                 <img src="/assets/flow/buy-sell-4.png" alt="Follow Traders" className="w-full h-auto rounded-xl object-contain" />
@@ -127,19 +139,39 @@ export default function Home() {
             </div>
             
             <div className="bg-[#0a0a0c] rounded-[32px] p-10 border border-white/5 flex flex-col transition-transform hover:-translate-y-2 duration-300">
-              <span className="text-emerald-500 text-xs font-bold mb-4 uppercase tracking-widest">Step 3</span>
+              <span className="text-emerald-500 text-xs font-bold mb-4 uppercase tracking-widest">Alerts</span>
               <h3 className="text-3xl font-semibold mb-10 tracking-tight leading-tight">real time notifications for what the best are buying</h3>
               <div className="mt-auto">
                 <img src="/assets/flow/memecoin-4.png" alt="Notifications" className="w-full h-auto rounded-xl object-contain" />
               </div>
             </div>
           </div>
+
+          {/* Row 2: 3 utility cards (text-only, matching fomo.family) */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="bg-[#0a0a0c] rounded-[32px] p-10 border border-white/5 flex flex-col transition-transform hover:-translate-y-2 duration-300 min-h-[220px]">
+              <span className="text-orange-400 text-xs font-bold mb-4 uppercase tracking-widest">Easy Onboarding</span>
+              <h3 className="text-3xl font-semibold tracking-tight leading-tight">create an account in an instant</h3>
+              <p className="text-white/40 mt-4 text-sm">Sign in with Apple or Google — no seed phrases, no complexity.</p>
+            </div>
+            
+            <div className="bg-[#0a0a0c] rounded-[32px] p-10 border border-white/5 flex flex-col transition-transform hover:-translate-y-2 duration-300 min-h-[220px]">
+              <span className="text-cyan-400 text-xs font-bold mb-4 uppercase tracking-widest">Zero Complexity</span>
+              <h3 className="text-3xl font-semibold tracking-tight leading-tight">multichain &amp; gasless</h3>
+              <p className="text-white/40 mt-4 text-sm">Trade across chains without ever thinking about gas fees or bridges.</p>
+            </div>
+            
+            <div className="bg-[#0a0a0c] rounded-[32px] p-10 border border-white/5 flex flex-col transition-transform hover:-translate-y-2 duration-300 min-h-[220px]">
+              <span className="text-pink-400 text-xs font-bold mb-4 uppercase tracking-widest">One Click to Buy</span>
+              <h3 className="text-3xl font-semibold tracking-tight leading-tight">fund with apple pay</h3>
+              <p className="text-white/40 mt-4 text-sm">Top up your wallet instantly using Apple Pay or your card — no crypto needed to start.</p>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* CTA Section — clean, no spinning image */}
+      {/* CTA Section */}
       <section className="py-40 px-6 relative flex flex-col items-center text-center min-h-[600px] justify-center bg-[#050505]">
-        {/* Subtle radial glow instead of spinning image */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <div className="w-[700px] h-[700px] rounded-full bg-[#606AF7]/10 blur-[150px]" />
         </div>
@@ -148,7 +180,7 @@ export default function Home() {
             a trading app<br />for the rest of us
           </h2>
           <p className="text-xl md:text-2xl text-white/60 mb-12 font-medium">
-            Join 500,000 traders making their mark on ChadWallet
+            join 500,000 traders making their mark on ChadWallet
           </p>
           <div className="relative z-[200]">
             <HeroButtons />
@@ -161,10 +193,9 @@ export default function Home() {
         <TokenBanner />
       </div>
 
-      {/* Footer */}
+      {/* Footer — full links matching fomo.family */}
       <footer className="border-t border-white/5 bg-[#050505] pt-16 pb-8">
         <div className="max-w-7xl mx-auto px-6">
-          {/* Top row */}
           <div className="flex flex-col md:flex-row justify-between items-start gap-12 mb-12">
             {/* Brand */}
             <div className="flex flex-col gap-4 max-w-xs">
@@ -183,17 +214,26 @@ export default function Home() {
             </div>
 
             {/* Link columns */}
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-8 text-sm">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-sm">
               <div className="flex flex-col gap-3">
-                <span className="text-white/60 font-semibold uppercase tracking-widest text-xs">Product</span>
-                <a href="/" className="text-white/40 hover:text-white transition-colors">Home</a>
-                <a href="/trade/So11111111111111111111111111111111111111112" className="text-white/40 hover:text-white transition-colors">Trade</a>
-                <a href="/download" className="text-white/40 hover:text-white transition-colors">Download</a>
+                <span className="text-white/60 font-semibold uppercase tracking-widest text-xs">About</span>
+                <a href="https://www.chadwallet.xyz" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white transition-colors">Blog</a>
+                <a href="https://www.chadwallet.xyz" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white transition-colors">FAQ</a>
+                <a href="https://www.chadwallet.xyz" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white transition-colors">Affiliates</a>
+                <a href="https://www.chadwallet.xyz" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white transition-colors">Careers</a>
+              </div>
+              <div className="flex flex-col gap-3">
+                <span className="text-white/60 font-semibold uppercase tracking-widest text-xs">Social</span>
+                <a href="https://discord.gg/chadwallet" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white transition-colors">Discord</a>
+                <a href="https://x.com/chadwallet" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white transition-colors">X / Twitter</a>
+                <a href="https://instagram.com/chadwallet" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white transition-colors">Instagram</a>
+                <a href="https://youtube.com/@chadwallet" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white transition-colors">YouTube</a>
               </div>
               <div className="flex flex-col gap-3">
                 <span className="text-white/60 font-semibold uppercase tracking-widest text-xs">Download</span>
                 <a href="https://apps.apple.com/us/app/chadwallet/id6757367474" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white transition-colors">App Store</a>
                 <a href="https://play.google.com/store/apps/details?id=xyz.chadwallet.www" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white transition-colors">Google Play</a>
+                <a href="/download" className="text-white/40 hover:text-white transition-colors">Web App</a>
               </div>
               <div className="flex flex-col gap-3">
                 <span className="text-white/60 font-semibold uppercase tracking-widest text-xs">Legal</span>
@@ -203,7 +243,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Bottom row */}
           <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-white/30 text-xs">
             <p>&copy; {new Date().getFullYear()} ChadWallet. All rights reserved.</p>
             <div className="flex items-center gap-6">
