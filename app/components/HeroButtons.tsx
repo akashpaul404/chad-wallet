@@ -42,7 +42,7 @@ export default function HeroButtons() {
     <div className="flex flex-col sm:flex-row items-center gap-4 relative">
       <button 
         onClick={handleStartTrading}
-        className="px-8 py-4 w-full sm:w-auto bg-[#4e48da] hover:bg-[#433eb5] text-white text-lg font-semibold rounded-2xl transition-all duration-200"
+        className="px-8 py-4 w-full sm:w-auto bg-[#606AF780] hover:bg-[#606AF7] text-white text-lg font-semibold rounded-2xl transition-all duration-200"
       >
         Start trading
       </button>

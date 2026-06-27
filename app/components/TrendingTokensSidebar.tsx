@@ -4,34 +4,93 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { Token } from "./TokenMarquee";
 
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+async function fetchWithRetry(url: string, options: RequestInit, maxRetries = 4): Promise<Response> {
+  let delay = 1500;
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    const res = await fetch(url, options);
+    if (res.status !== 429) return res;
+    if (attempt < maxRetries) {
+      await sleep(delay);
+      delay *= 2; // 1.5s → 3s → 6s → 12s
+    }
+  }
+  return fetch(url, options);
+}
+
 export default function TrendingTokensSidebar() {
   const [tokens, setTokens] = useState<Token[]>([]);
   const [loading, setLoading] = useState(true);
+  const [retrying, setRetrying] = useState(false);
 
   useEffect(() => {
+    let cancelled = false;
+
     async function fetchTokens() {
       try {
-        const res = await fetch("https://public-api.birdeye.so/defi/token_trending", {
-          headers: {
-            "x-chain": "solana",
-            "X-API-KEY": process.env.NEXT_PUBLIC_BIRDEYE_API_KEY || "",
-          },
-        });
+        // Stagger: delay 400ms so chart and server calls start first
+        await sleep(400);
+        if (cancelled) return;
+
+        const res = await fetchWithRetry(
+          "https://public-api.birdeye.so/defi/token_trending",
+          {
+            headers: {
+              "x-chain": "solana",
+              "X-API-KEY": process.env.NEXT_PUBLIC_BIRDEYE_API_KEY || "",
+            },
+          }
+        );
+
+        if (cancelled) return;
+
+        if (res.status === 429) {
+          // Still 429 after retries — show empty gracefully
+          setLoading(false);
+          return;
+        }
+
         const json = await res.json();
-        if (json.data?.tokens) {
+        if (json.data?.tokens && !cancelled) {
           setTokens(json.data.tokens);
         }
       } catch (e) {
-        console.error("Failed to fetch trending tokens:", e);
+        if (!cancelled) console.error("Failed to fetch trending tokens:", e);
       } finally {
-        setLoading(false);
+        if (!cancelled) {
+          setLoading(false);
+          setRetrying(false);
+        }
       }
     }
+
     fetchTokens();
+    return () => { cancelled = true; };
   }, []);
 
-  if (loading) {
-    return <div className="p-6 text-white/40 text-sm text-center">Loading trending tokens...</div>;
+  if (loading || retrying) {
+    return (
+      <div className="flex flex-col items-center justify-center gap-3 p-8 text-center h-40">
+        <div className="flex gap-1.5">
+          <span className="w-2 h-2 rounded-full bg-white/30 animate-bounce [animation-delay:-0.3s]" />
+          <span className="w-2 h-2 rounded-full bg-white/30 animate-bounce [animation-delay:-0.15s]" />
+          <span className="w-2 h-2 rounded-full bg-white/30 animate-bounce" />
+        </div>
+        <p className="text-white/30 text-xs">
+          {retrying ? "Retrying…" : "Loading trending tokens…"}
+        </p>
+      </div>
+    );
+  }
+
+  if (tokens.length === 0) {
+    return (
+      <div className="p-6 text-white/30 text-sm text-center">
+        No trending tokens available.<br />
+        <span className="text-xs text-white/20">API rate limit may apply.</span>
+      </div>
+    );
   }
 
   return (

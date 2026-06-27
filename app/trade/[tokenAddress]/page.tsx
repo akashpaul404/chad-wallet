@@ -74,7 +74,9 @@ export default async function TradePage({ params }: { params: Promise<{ tokenAdd
                   {overview?.name || "Unknown Token"} 
                   <span className="text-white/40 text-sm font-normal">{overview?.symbol}</span>
                 </h1>
-                <span className="text-white/40 text-xs font-mono">{tokenAddress}</span>
+                <span className="text-white/30 text-xs font-mono">
+                  {tokenAddress.slice(0, 6)}...{tokenAddress.slice(-6)}
+                </span>
               </div>
             </div>
             
@@ -161,13 +163,14 @@ export default async function TradePage({ params }: { params: Promise<{ tokenAdd
         
         {/* Right Column: Execution Desk (25%) */}
         <div className="w-1/4 lg:min-w-[320px] xl:max-w-[400px] bg-[#0a0a0c] overflow-y-auto p-4 flex flex-col gap-4">
-          <div className="bg-[#161618] rounded-xl border border-white/5 overflow-hidden shadow-2xl">
+          {/* Jupiter Terminal — scrollable box so Connect Wallet is always reachable */}
+          <div className="bg-[#161618] rounded-xl border border-white/5 shadow-2xl overflow-y-auto flex-shrink-0" style={{ maxHeight: 'calc(85vh - 220px)' }}>
             <JupiterTerminal tokenAddress={tokenAddress} />
           </div>
           
-          <div className="bg-[#161618] rounded-xl border border-white/5 p-4 flex-1 min-h-[200px]">
+          <div className="bg-[#161618] rounded-xl border border-white/5 p-4 min-h-[200px]">
             <h2 className="text-sm font-semibold text-white/80 mb-4">Your Positions</h2>
-            <div className="flex items-center justify-center h-full text-white/30 text-sm border border-dashed border-white/10 rounded-lg py-8">
+            <div className="flex items-center justify-center h-24 text-white/30 text-sm border border-dashed border-white/10 rounded-lg">
               No open positions
             </div>
           </div>
