@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { usePrivy } from "@privy-io/react-auth";
 
 export default function Navbar() {
@@ -20,9 +21,9 @@ export default function Navbar() {
   return (
     <nav className="relative z-10 flex items-center justify-between px-6 py-4 w-full">
       <div className="flex items-center gap-2">
-        <span className="text-3xl font-bold tracking-tight text-white">
+        <Link href="/" className="text-3xl font-bold tracking-tight text-white hover:opacity-80 transition-opacity">
           ChadWallet
-        </span>
+        </Link>
       </div>
       <div className="flex items-center gap-2">
         <a href="https://apps.apple.com/us/app/chadwallet/id6757367474" target="_blank" rel="noopener noreferrer" className="hidden md:block opacity-80 hover:opacity-100 transition-opacity">
