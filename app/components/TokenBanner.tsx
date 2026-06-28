@@ -37,7 +37,6 @@ async function getTrendingTokens(): Promise<{ tokens: Token[], error?: string }>
     const json = await res.json();
     return { tokens: json.data?.tokens || [] };
   } catch (e: any) {
-    console.error("Token fetch error:", e);
     return { tokens: [], error: `Fetch failed: ${e.message || "Unknown error"}` };
   }
 }

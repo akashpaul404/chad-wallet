@@ -33,7 +33,6 @@ export default function JupiterTerminal({ tokenAddress }: { tokenAddress: string
           fixedOutputMint: true,
         },
         onSuccess: ({ txid }: { txid: string }) => {
-          console.log("Swap success:", txid);
         },
       });
     };

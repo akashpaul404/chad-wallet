@@ -61,10 +61,6 @@ export default function LightweightChart({ tokenAddress }: { tokenAddress: strin
         setRetrying(false);
         setError(null);
 
-        // Stagger: wait 800ms so server-side calls (overview/holders) fire first
-        await sleep(800);
-        if (cancelled) return;
-
         const timeTo = Math.floor(Date.now() / 1000);
         const timeFrom = timeTo - 25 * 60 * 60;
 
@@ -77,6 +73,9 @@ export default function LightweightChart({ tokenAddress }: { tokenAddress: strin
               "x-chain": "solana",
               "X-API-KEY": process.env.NEXT_PUBLIC_BIRDEYE_API_KEY || "",
             },
+            cache: "force-cache",
+            // @ts-ignore — Next.js extends fetch with 'next' option
+            next: { revalidate: 60 },
           }
         );
 
@@ -104,7 +103,6 @@ export default function LightweightChart({ tokenAddress }: { tokenAddress: strin
         }
       } catch (err) {
         if (!cancelled) {
-          console.error("Failed to fetch chart data:", err);
           setError("Failed to load chart data.");
         }
       } finally {

@@ -29,10 +29,6 @@ export default function TrendingTokensSidebar() {
 
     async function fetchTokens() {
       try {
-        // Stagger: delay 400ms so chart and server calls start first
-        await sleep(400);
-        if (cancelled) return;
-
         const res = await fetchWithRetry(
           "https://public-api.birdeye.so/defi/token_trending",
           {
@@ -40,6 +36,9 @@ export default function TrendingTokensSidebar() {
               "x-chain": "solana",
               "X-API-KEY": process.env.NEXT_PUBLIC_BIRDEYE_API_KEY || "",
             },
+            cache: "force-cache",
+            // @ts-ignore — Next.js extends fetch with 'next' option
+            next: { revalidate: 60 },
           }
         );
 

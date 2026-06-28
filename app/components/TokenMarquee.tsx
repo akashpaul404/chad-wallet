@@ -14,7 +14,6 @@ export type Token = {
 
 export default function TokenMarquee({ tokens }: { tokens: Token[] }) {
   const handleClick = (address: string) => {
-    console.log("Banner clicked:");
   };
 
   // Duplicate tokens to ensure seamless infinite scrolling
