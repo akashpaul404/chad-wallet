@@ -21,7 +21,8 @@ export default function Navbar() {
   return (
     <nav className="relative z-10 flex items-center justify-between px-6 py-4 w-full">
       <div className="flex items-center gap-2">
-        <Link href="/" className="text-3xl font-bold tracking-tight text-white hover:opacity-80 transition-opacity">
+        <Link href="/" className="flex items-center gap-2 text-3xl font-bold tracking-tight text-white hover:opacity-80 transition-opacity">
+          <img src="/assets/logo/light.png" alt="ChadWallet Logo" className="h-[1em] w-auto" />
           ChadWallet
         </Link>
       </div>

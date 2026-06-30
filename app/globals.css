@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --background: #05050A; /* Deep dark blue/black space theme */
+  --background: #060510; /* Fomo dark background */
   --foreground: #ffffff;
   --accent: #2563eb; /* A nice bright blue for accents */
 }
@@ -36,4 +36,25 @@ a, button {
 
 * {
   scrollbar-width: thin;
+}
+
+/* Hover-only scrollbar */
+.hover-scrollbar {
+  scrollbar-color: transparent transparent;
+}
+.hover-scrollbar:hover {
+  scrollbar-color: #3f3f46 transparent;
+}
+.hover-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.hover-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.hover-scrollbar::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 9999px;
+}
+.hover-scrollbar:hover::-webkit-scrollbar-thumb {
+  background-color: #3f3f46;
 }
